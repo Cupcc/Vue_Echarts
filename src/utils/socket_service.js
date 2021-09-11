@@ -16,11 +16,20 @@ export default class SocketService {
   // 存储回调函数
   callBackMapping = {};
 
+<<<<<<< HEAD
   // 标识是否连接成功
   connected = false;
 
   // 记录重试的次数
   sendRetryCount = 0;
+=======
+  static get Instance() {
+    if (!this.instance) {
+      this.instance = new SocketService();
+    }
+    return this.instance;
+  }
+>>>>>>> 8b2e6aab85d9aaa04bbc56e87a04e7ad84e20e19
 
   // 重新连接尝试的次数
   connectRetryCount = 0;
