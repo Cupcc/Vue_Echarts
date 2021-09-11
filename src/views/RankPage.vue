@@ -11,13 +11,13 @@
 <script>
 import Rank from '@/components/Rank';
 export default {
-  data() {
-    return {};
-  },
-  methods: {},
-  components: {
-    rank: Rank
-  }
+    data() {
+        return {};
+    },
+    methods: {},
+    components: {
+        rank: Rank
+    }
 };
 </script>
 
