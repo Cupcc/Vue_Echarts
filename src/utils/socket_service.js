@@ -41,7 +41,6 @@ export default class SocketService {
     if (!this.instance) {
       this.instance = new SocketService();
     }
-
     return this.instance;
   }
 
