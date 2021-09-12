@@ -4,7 +4,10 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ['plugin:vue/essential', '@vue/standard'],
+  extends: [
+    'plugin:vue/essential'
+    //'@vue/standard'
+  ],
   parserOptions: {
     parser: 'babel-eslint'
   },
@@ -14,6 +17,7 @@ module.exports = {
     'vue/comment-directive': 0,
     quotes: [1, 'single'],
     semi: [0, 'never'],
-    'space-before-function-paren': ['error', 'never']
+    'space-before-function-paren': ['error', 'never'],
+    'no-multiple-empty-lines': 0
   }
 };

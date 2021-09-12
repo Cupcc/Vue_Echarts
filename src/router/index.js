@@ -10,13 +10,13 @@ const routes = [
     redicrect: '/screen'
   },
   {
-    path: 'screen',
+    path: '/screen',
     component: ScreenPage
   }
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 });

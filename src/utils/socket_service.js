@@ -55,6 +55,7 @@ export default class SocketService {
       console.log('从服务端获取到了数据');
       // 真正服务端发送过来的原始数据时在msg中的data字段
       // console.log(msg.data)
+      console.log('msg.data:::', msg.data);
       const recvData = JSON.parse(msg.data);
       const socketType = recvData.socketType;
       // 判断回调函数是否存在
