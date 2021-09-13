@@ -4,10 +4,9 @@
       <div>
         <img :src="headerSrc" alt="" />
       </div>
-      <!--
       <span class="logo">
-        <img :src="logoSrc" alt="" />
-      </span> -->
+        <p>Author:崔永琪</p>
+      </span>
       <span class="title">电商平台实时监控系统</span>
       <div class="title-right">
         <img :src="themeSrc" class="qiehuan" @click="handleChangeTheme" />
@@ -301,7 +300,7 @@ export default {
   .logo {
     position: absolute;
     left: 0px;
-    top: 50%;
+    top: 80%;
     transform: translateY(-80%);
     img {
       height: 35px;
