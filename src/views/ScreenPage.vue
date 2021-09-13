@@ -4,13 +4,14 @@
       <div>
         <img :src="headerSrc" alt="" />
       </div>
+      <!--
       <span class="logo">
         <img :src="logoSrc" alt="" />
-      </span>
+      </span> -->
       <span class="title">电商平台实时监控系统</span>
       <div class="title-right">
         <img :src="themeSrc" class="qiehuan" @click="handleChangeTheme" />
-        <span class="datetime">2049-01-01 00:00:00</span>
+        <span class="datetime">{{ systemDateTime }}</span>
       </div>
     </header>
     <div class="screen-body">
@@ -143,6 +144,7 @@ export default {
         // 注册接收到数据的回调函数
         this.$socket.registerCallBack('fullScreen', this.recvData)
         this.$socket.registerCallBack('themeChange', this.recvThemeChange)
+        this.currentTime()
     },
     destroyed() {
         this.$socket.unRegisterCallBack('fullScreen')
@@ -158,26 +160,28 @@ export default {
                 rank: false,
                 hot: false,
                 stock: false
-            }
+            },
+            systemDateTime: null,
+            timerID: null
         }
     },
     methods: {
         changeSize(chartName) {
             // 1.改变fullScreenStatus的数据
-            // this.fullScreenStatus[chartName] = !this.fullScreenStatus[chartName]
+            this.fullScreenStatus[chartName] = !this.fullScreenStatus[chartName]
             // 2.需要调用每一个图表组件的screenAdapter的方法
-            // this.$refs[chartName].screenAdapter()
-            // this.$nextTick(() => {
-            //   this.$refs[chartName].screenAdapter()
-            // })
-            // 将数据发送给服务端
-            const targetValue = !this.fullScreenStatus[chartName]
-            this.$socket.send({
-                action: 'fullScreen',
-                socketType: 'fullScreen',
-                chartName: chartName,
-                value: targetValue
+            this.$refs[chartName].screenAdapter()
+            this.$nextTick(() => {
+                this.$refs[chartName].screenAdapter()
             })
+            // 将数据发送给服务端
+            // const targetValue = !this.fullScreenStatus[chartName]
+            // this.$socket.send({
+            //     action: 'fullScreen',
+            //     socketType: 'fullScreen',
+            //     chartName: chartName,
+            //     value: targetValue
+            // })
         },
         // 接收到全屏数据之后的处理
         recvData(data) {
@@ -192,16 +196,23 @@ export default {
         },
         handleChangeTheme() {
             // 修改VueX中数据
-            // this.$store.commit('changeTheme')
-            this.$socket.send({
-                action: 'themeChange',
-                socketType: 'themeChange',
-                chartName: '',
-                value: ''
-            })
+            this.$store.commit('changeTheme')
+            // this.$socket.send({
+            //     action: 'themeChange',
+            //     socketType: 'themeChange',
+            //     chartName: '',
+            //     value: ''
+            // })
         },
         recvThemeChange() {
             this.$store.commit('changeTheme')
+        },
+        currentTime() {
+            this.systemDateTime = new Date().toLocaleString()
+            this.timerID && clearInterval(this.timerID)
+            this.timerID = setInterval(() => {
+                this.systemDateTime = new Date().toLocaleString()
+            }, 1000)
         }
     },
     components: {
@@ -213,6 +224,7 @@ export default {
         Trend
     },
     computed: {
+
         logoSrc() {
             return '/static/img/' + getThemeValue(this.theme).logoSrc
         },

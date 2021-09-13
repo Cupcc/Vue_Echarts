@@ -97,14 +97,15 @@ export default {
                     {
                         type: 'pie',
                         label: {
-                            show: false
+                            show: true,
+                            formatter: '{b}{d}%'
                         },
                         emphasis: {
                             label: {
                                 show: true
                             },
                             labelLine: {
-                                show: false
+                                show: true
                             }
                         }
                     }
